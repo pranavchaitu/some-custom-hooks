@@ -1,0 +1,1 @@
+- run it locally by typing command `npm run dev`
