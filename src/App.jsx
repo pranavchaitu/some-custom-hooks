@@ -8,10 +8,11 @@ import { useIsOnline } from './hooks/useIsOnline';
 import { useMousePointer } from './hooks/useMousePointer';
 import { useInterval } from './hooks/useInterval';
 import { useDebounce } from './hooks/useDebounce';
-
+import { Loader } from './components/Loader';
+    
 function App(){
   //if this input n is dynamic we clear intervals and good to go
-  const [todos,loading] = useTodos(5);
+  const [todos,loading] = useTodos(3);
   const status = useIsOnline()
   const {x,y} = useMousePointer();
   const [count,setCount] = useState(0);
@@ -30,7 +31,7 @@ function App(){
 
   if(loading){
     return <>
-      Loading..
+        <Loader />
     </>
   }
 

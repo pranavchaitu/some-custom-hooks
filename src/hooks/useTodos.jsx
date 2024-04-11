@@ -1,27 +1,24 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export function useTodos(n) {
-    const [todos,setTodos] = useState([]);
-    const [loading,setLoading] = useState(true);
-  
-    useEffect(() =>{
-      const timer = setInterval(() => {
-        axios.get(`https://sum-server.100xdevs.com/todos`)
-        .then(res => {
-          setTodos(res.data.todos)
-          setLoading(false)
-        })
-      }, n*1000);
-      axios.get(`https://sum-server.100xdevs.com/todos`)
-      .then(res => {
-        setTodos(res.data.todos)
-        setLoading(false)
-      })
-      return () => {
-        clearInterval(timer)
-      }
-    },[n])  
-  
-    return [todos,loading];
+export const useTodos = (n) => {
+  const [todos,setTodos] = useState([]);
+  const [loading,setLoading] = useState(true);
+
+  const getTodos =  async () => {
+    const res = await axios.get('https://sum-server.100xdevs.com/todos')
+    setTodos(res.data.todos)
+    setLoading(false)
   }
+
+  useEffect(() => {
+    getTodos();
+    let timer = setInterval(getTodos,n*1000);
+    return () => {
+      //the cleanup
+      clearInterval(timer)
+    }
+  },[n])
+
+  return [todos,loading]
+}
