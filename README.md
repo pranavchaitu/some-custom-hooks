@@ -1,1 +1,1 @@
-- run it locally by typing command `npm run dev`
+- clone it and run it locally by typing command `npm run dev`
